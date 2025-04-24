@@ -17,8 +17,18 @@ Projeto criado por:
 
 ## Descrição do Projeto
 - **Objetivo**   
-> 
-<br>
+### 10. **Sistema de Plataforma de Streaming**
+- **Entidades**: Usuário, Filme, Série, Gênero, Avaliação, Assinatura.
+- **Relacionamentos n:m**:
+  - Filme e Gênero (um filme pode pertencer a vários gêneros e um gênero pode incluir vários filmes).
+  - Usuário e Avaliação (um usuário pode avaliar vários conteúdos e um conteúdo pode ser avaliado por vários usuários).
+- **Atributos**:
+  - Usuário: nome, e-mail, data de nascimento.
+  - Filme: título, duração, ano de lançamento.
+  - Série: título, número de temporadas, status (ativa/finalizada).
+  - Gênero: nome, descrição.
+  - Avaliação: nota, comentário, data.
+  - Assinatura: tipo, valor, data de renovação.
 
 - **Tabelas** (Mudar a descrição das tabelas)   
 > O banco de dados deverá conter as seguintes informações:   
