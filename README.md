@@ -1,6 +1,6 @@
 <div align="center">
   
-# À DECIDIR
+# PLATAFORMA DE STREAMING
 ## PROJETO 2: BANCO DE DADOS
 
 </div>
