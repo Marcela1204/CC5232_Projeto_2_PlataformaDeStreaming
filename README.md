@@ -30,7 +30,8 @@ O modelo de dados incluirá relacionamentos do tipo muitos-para-muitos entre:
 3. Série: id_serie, título, número de temporadas e status (ativa ou finalizada).   
 4. Gênero: id_genero, nome e descrição.   
 5. Avaliação: id_ avaliacao, nota, comentário e data da avaliação.   *
-6. Assinatura: id_assinatura, tipo de plano, valor e data de renovação.   
+6. Assinatura: id_assinatura, tipo de plano, valor e data de renovação.
+<br>
 
 - **Queries** 
 > Para demonstrar o funcionamento do banco, foram usadas as seguintes queries:   
