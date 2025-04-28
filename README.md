@@ -78,10 +78,10 @@ Passo a passo para exceutar o projeto:
 ## Diagramas
 
 ### MER
-
-
+![image](https://github.com/user-attachments/assets/f1f1a83d-8876-4714-94d1-1dc7f682ca83)
 
 ### MR
+![image](https://github.com/user-attachments/assets/bafacdac-17aa-48fb-963e-83c267e08c8e)
 
 
 
