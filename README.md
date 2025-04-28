@@ -11,33 +11,26 @@ Projeto criado por:
 * [Lucas Kerr](https://github.com/Adelgrin) | RA: 221230329
 * [Marcela Nalesso](https://github.com/Marcela1204) | RA: 222220113
 
-* Link do git hub: https://github.com/Marcela1204/CC5232_Projeto_1-Universidade/tree/main
-* Link do git hub2: https://github.com/Marcela1204/CC5232_Projeto_1-Universidade.git
+* Link do git hub: https://github.com/Marcela1204/CC5232_Projeto_2_PlataformaDeStreaming
+* Link do git hub2: https://github.com/Marcela1204/CC5232_Projeto_2_PlataformaDeStreaming.git
 <br>
 
 ## Descrição do Projeto
 - **Objetivo**   
-### 10. **Sistema de Plataforma de Streaming**
-- **Entidades**: Usuário, Filme, Série, Gênero, Avaliação, Assinatura.
-- **Relacionamentos n:m**:
-  - Filme e Gênero (um filme pode pertencer a vários gêneros e um gênero pode incluir vários filmes).
-  - Usuário e Avaliação (um usuário pode avaliar vários conteúdos e um conteúdo pode ser avaliado por vários usuários).
-- **Atributos**:
-  - Usuário: nome, e-mail, data de nascimento.
-  - Filme: título, duração, ano de lançamento.
-  - Série: título, número de temporadas, status (ativa/finalizada).
-  - Gênero: nome, descrição.
-  - Avaliação: nota, comentário, data.
-  - Assinatura: tipo, valor, data de renovação.
+> Desenvolver um sistema de banco de dados para uma plataforma de streaming, com foco na gestão de conteúdos audiovisuais e interação dos usuários. O sistema deverá contemplar as seguintes entidades principais: Usuário, Filme, Série, Gênero, Avaliação e Assinatura.
+O modelo de dados incluirá relacionamentos do tipo muitos-para-muitos entre:
+1. Filmes e Gêneros: um filme pode estar associado a múltiplos gêneros e um gênero pode agrupar diversos filmes.
+2. Usuários e Avaliações: cada usuário pode realizar múltiplas avaliações e cada conteúdo pode ser avaliado por vários usuários.
+<br>
 
-- **Tabelas** (Mudar a descrição das tabelas)   
+- **Tabelas**   
 > O banco de dados deverá conter as seguintes informações:   
-1. 
-2. 
-3.  
-4. 
-5. 
-6. 
+1. Usuário: id_usuario, nome, e-mail e data de nascimento.   
+2. Filme: id_filme, título, duração e ano de lançamento.   *
+3. Série: id_serie, título, número de temporadas e status (ativa ou finalizada).   
+4. Gênero: id_genero, nome e descrição.   
+5. Avaliação: id_ avaliacao, nota, comentário e data da avaliação.   *
+6. Assinatura: id_assinatura, tipo de plano, valor e data de renovação.   
 
 - **Queries** 
 > Para demonstrar o funcionamento do banco, foram usadas as seguintes queries:   
