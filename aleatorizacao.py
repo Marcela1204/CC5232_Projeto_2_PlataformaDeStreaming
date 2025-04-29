@@ -50,6 +50,7 @@ if __name__ == "__main__":
     assinaturas = []
     #todos os dados a serem inseridos no banco
     assinex = ["premium", "basico", "familia"]
+    assvalores = {"premium": 49.90, "basico": 29.90, "familia": 39.90}
     for _ in range(10):
         pessoas.append(gerar_dados_pessoa())
     for _ in range(5):
@@ -70,7 +71,8 @@ if __name__ == "__main__":
             #print()
             avaliacoes.append(avaliacao)
     for l in pessoas:
-        assinaturas.append({"usuario": l["nome"], "tipo": faker.Faker().random_element(assinex), "data_renovacao": faker.Faker().date_this_year()})
+        tipo = faker.Faker().random_element(assinex)
+        assinaturas.append({"usuario": l["nome"], "tipo": tipo, "data_renovacao": faker.Faker().date_this_year(), "valor" : assvalores[tipo]})
 
     
     print(pessoas)
