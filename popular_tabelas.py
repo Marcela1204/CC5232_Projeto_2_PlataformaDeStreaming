@@ -42,8 +42,8 @@ def popular(numUsuarios,numMidias):
             #print(f"Nota: {avaliacao['nota']}")
             #print()
             avaliacoes.append(avaliacao)
-            progresso += 1 
-            print("{:.1f}%".format(progresso/len(midias)*len(pessoas) * 100), end="\r")
+        progresso += 1 
+        print("{:.1f}%".format(progresso/len(midias) * 100), end="\r")
     progresso = 0
     print("indexando assinaturas")
     for l in pessoas:
@@ -68,8 +68,9 @@ def popular(numUsuarios,numMidias):
     progresso = 0
     print("gerando series")
     status = ["ativa", "finalizada"]
+    fake = faker.Faker()
     for i in series:
-        inserirSerie(random.randint(1, 5), faker.Faker.random_element(status), i, gerar_genero_filme())
+        inserirSerie(random.randint(1, 5), fake.random_element(status), i, gerar_genero_filme())
         progresso += 1
         print("{:.1f}%".format(progresso/len(series) * 100), end="\r")
     progresso = 0
