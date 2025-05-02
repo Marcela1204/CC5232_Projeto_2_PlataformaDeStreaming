@@ -18,14 +18,14 @@ def popular(numUsuarios,numMidias):
     for _ in range(numUsuarios):
         pessoas.append(gerar_dados_pessoa())
         progresso += 1
-        print("{0}%".format(progresso/numUsuarios * 100), end="\r")
+        print("{:.1f}%".format(progresso/numUsuarios * 100), end="\r")
     progresso = 0
     print("indexando midias")
     for _ in range(numMidias//2):
         series.append(gerar_nome_filme_serie())
         filmes.append(gerar_nome_filme_serie())
         progresso += 1
-        print("{0}%".format(progresso/(numMidias//2) * 100), end="\r")
+        print("{:.1f}%".format(progresso/(numMidias//2) * 100), end="\r")
     midias = filmes[:] + series[:]
     progresso = 0
     print("indexando avaliacoes")
@@ -42,8 +42,8 @@ def popular(numUsuarios,numMidias):
             #print(f"Nota: {avaliacao['nota']}")
             #print()
             avaliacoes.append(avaliacao)
-            progresso = 0
-            print("{0}%".format(progresso/len(midias)*len(pessoas) * 100), end="\r")
+            progresso += 1 
+            print("{:.1f}%".format(progresso/len(midias)*len(pessoas) * 100), end="\r")
     progresso = 0
     print("indexando assinaturas")
     for l in pessoas:
@@ -64,25 +64,26 @@ def popular(numUsuarios,numMidias):
         fake = faker.Faker()
         inserirGenero(fake.sentence(nb_words=2), i)
         progresso += 1
-        print("{0}%".format(progresso/len(generos) * 100), end="\r")
+        print("{:.1f}%".format(progresso/len(generos) * 100), end="\r")
     progresso = 0
     print("gerando series")
+    status = ["ativa", "finalizada"]
     for i in series:
-        inserirSerie(random.randint(1, 5), "ativa", i, gerar_genero_filme())
+        inserirSerie(random.randint(1, 5), faker.Faker.random_element(status), i, gerar_genero_filme())
         progresso += 1
-        print("{0}%".format(progresso/len(series) * 100), end="\r")
+        print("{:.1f}%".format(progresso/len(series) * 100), end="\r")
     progresso = 0
     print("gerando filmes")
     for i in filmes:
         inserirFilme(i, random.randint(60, 180), random.randint(2000, 2023), gerar_genero_filme())
         progresso += 1
-        print("{0}%".format(progresso/len(filmes) * 100), end="\r")
+        print("{:.1f}%".format(progresso/len(filmes) * 100), end="\r")
     progresso = 0
     print("gerando usuarios")
     for i in pessoas:
         inserirUsuario(i["nome"], i["data_nascimento"], i["email"])
         progresso += 1
-        print("{0}%".format(progresso/len(pessoas) * 100), end="\r")
+        print("{:.1f}%".format(progresso/len(pessoas) * 100), end="\r")
     progresso = 0
     print("gerando avaliacoes")
     for i in avaliacoes:
@@ -91,13 +92,13 @@ def popular(numUsuarios,numMidias):
         else:
             inserirAvaliacao(i["comentario"], i["data"], i["nota"], i["usuario"], i["nome"], "")
         progresso += 1
-        print("{0}%".format(progresso/len(avaliacoes) * 100), end="\r")
+        print("{:.1f}%".format(progresso/len(avaliacoes) * 100), end="\r")
     progresso = 0
     print("gerando assinaturas")
     for i in assinaturas:
         inserirAssinatura(i["tipo"], i["valor"], i["data_renovacao"], i["usuario"])
         progresso += 1
-        print("{0}%".format(progresso/len(assinaturas) * 100), end="\r")
+        print("{:.1f}%".format(progresso/len(assinaturas) * 100), end="\r")
 
 if __name__ == "__main__":
-    popular(10,20)#numero de usuarios(30) e numero de midias(50)
+    popular(10,20)#numero de usuarios(10) e numero de midias(20)
