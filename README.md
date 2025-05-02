@@ -18,9 +18,6 @@ Projeto criado por:
 ## Descrição do Projeto
 - **Objetivo**   
 > Desenvolver um sistema de banco de dados para uma plataforma de streaming, com foco na gestão de conteúdos audiovisuais e interação dos usuários. O sistema deverá contemplar as seguintes entidades principais: Usuário, Filme, Série, Gênero, Avaliação e Assinatura.
-O modelo de dados incluirá relacionamentos do tipo muitos-para-muitos entre:
-1. Filmes e Gêneros: um filme pode estar associado a múltiplos gêneros e um gênero pode agrupar diversos filmes.
-2. Usuários e Avaliações: cada usuário pode realizar múltiplas avaliações e cada conteúdo pode ser avaliado por vários usuários.
 <br>
 
 - **Tabelas**   
@@ -33,18 +30,23 @@ O modelo de dados incluirá relacionamentos do tipo muitos-para-muitos entre:
 6. Assinatura: id_assinatura, tipo de plano, valor e data de renovação.
 <br>
 
+> O modelo de dados incluirá relacionamentos do tipo muitos-para-muitos entre:
+1. Filmes e Gêneros: um filme pode estar associado a múltiplos gêneros e um gênero pode agrupar diversos filmes.
+2. Usuários e Avaliações: cada usuário pode realizar múltiplas avaliações e cada conteúdo pode ser avaliado por vários usuários.
+<br>
+
 - **Queries** 
 > Para demonstrar o funcionamento do banco, foram usadas as seguintes queries:   
-1.  
-2.  
-3.    
-4.   
-5. 
-6. 
-7. 
-8. 
-9. 
-10. 
+1. Listar os usuários com suas assinaturas
+2. Mostrar os usuários que fizeram avaliações e o conteúdo avaliado
+3. Exibir filmes com suas avaliações e notas médias
+4. Listar séries com o número de avaliações
+5. Obter os gêneros e quantos conteúdos (filmes ou séries) estão associados a cada um
+6. Listar todos os usuários com suas notas e comentários em filmes
+7. Listar usuários que avaliaram séries finalizadas
+8. Mostrar usuários com sua assinatura e média das notas dadas
+9. Filmes com avaliações negativas (< 5) e os usuários que avaliaram
+10. Séries ativas com avaliações, nomes dos usuários e notas
 <br>
 
 
