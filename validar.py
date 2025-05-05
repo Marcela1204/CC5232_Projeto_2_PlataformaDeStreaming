@@ -58,8 +58,23 @@ nulos["assinaturas"] += verificar_nulos(readassinaturas, nulos)
 nulos["generos"] += verificar_nulos(readgeneros, nulos)
 nulos["series"] += verificar_nulos(readseries, nulos)
 nulos["filmes"] += verificar_nulos(readfilmes, nulos)
+
 print("Total de nulos: \n", nulos)
 
+
+erros = 0
+progresso = 0
+print("verificando usuarios")
+for i in readusuarios.data:
+    for j in readavaliacoes.data:
+        print("{:.1f}%".format(progresso/(len(readusuarios.data)*len(readavaliacoes.data)) * 100), end="\r")
+        if i["nome"] == j["usuario"]:
+            if i["id_usuario"] != j["id_usuario"]:
+                print(f"Erro: {i['nome']} tem id_usuario diferente em avaliacoes")
+                erros += 1
+        else:
+            print(f"Erro: {i['nome']} existe em usuarios mas não em avaliacoes")
+            erros += 1
 
 
 
