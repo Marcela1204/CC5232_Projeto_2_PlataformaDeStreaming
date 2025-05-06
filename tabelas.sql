@@ -20,6 +20,7 @@ create table generos (
 create table filmes (
     id_filme serial primary key,
     titulo varchar(200) not null,
+    genero text,
     duracao integer not null,  -- Duração em minutos
     ano_lancamento integer not null,
     id_genero integer references generos(id_genero)
@@ -30,6 +31,7 @@ create table series (
     id_serie serial primary key,
     titulo varchar(200) not null,
     numero_temporadas integer not null,
+    genero text,
     status varchar(20) not null check (status in ('ativa', 'finalizada')),
     id_genero integer references generos(id_genero)
     
@@ -41,6 +43,7 @@ create table avaliacoes (
     nota integer not null check (nota >= 1 and nota <= 10), -- Nota de 1 a 10
     comentario text,
     data_avaliacao timestamp,
+    usuario text,
     id_usuario integer references usuarios(id_usuario),
     id_serie integer references series(id_serie),
     id_filme integer references filmes(id_filme)
@@ -49,6 +52,7 @@ create table avaliacoes (
 -- Tabela Assinatura
 create table assinaturas (
     id_assinatura serial primary key,
+    usuario text,
     tipo_plano varchar(50) not null,  -- Exemplo: "mensal", "anual"
     valor numeric(10, 2) not null,  -- Valor da assinatura
     data_renovacao date not null,
