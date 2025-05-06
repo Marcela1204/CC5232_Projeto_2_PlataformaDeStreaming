@@ -145,24 +145,28 @@ print("numero de usuarios com avaliacoes duplicadas: \n",duplicatas)
 print("verificando consistencia de filmes e avaliacoes")
 erros = 0
 for i in readfilmes.data:
-	for j in readavaliacoes.data:
-		if i["id_filme"] != j["id_filme"]  and j["id_filme"] not None
-			erros += 1
+	#for j in readavaliacoes.data:
+    nao_existe = all(d["id_filme"] != i["id_filme"] for d in readavaliacoes.data)
+		#if i["id_filme"] != j["id_filme"]  and j["id_filme"] != None:
+    if nao_existe:
+        erros += 1
 print("flmes que não constam na tabela de avaliacoes: \n",erros)
 
 
 print("verificando consistencia de filmes e avaliacoes")
 erros = 0
 for i in readseries.data:
-	for j in readavaliacoes.data:
-		if i["id_serie"] != j["id_serie"] and j["id_serie"] not None
-			erros += 1
+	#for j in readavaliacoes.data:
+    nao_existe = all(d["id_serie"] != i["id_serie"] for d in readavaliacoes.data)
+		#if i["id_serie"] != j["id_serie"] and j["id_serie"] != None:
+    if nao_existe:
+        erros += 1
 print("series que não constam na tabela de avaliacoes: \n",erros)
 
 print("verificando consistencia de assinaturas e usuarios")
 erros = 0
 for i in readusuarios.data:
-		nao_existe = all(d["id_usuario"] != i["id_usuario"] for d in readassinatura.data)
+		nao_existe = all(d["id_usuario"] != i["id_usuario"] for d in readassinaturas.data)
 		if nao_existe:
 			erros += 1
 print("usuarios sem assinaturas: \n",erros)
@@ -188,12 +192,12 @@ print("usuarios sem assinaturas: \n",erros)
 
 erros = 0
 for i in readgeneros.data:
-	nao_existe = all(d["id_genero"] != i["id_genero"] for d in readfilmes.data)
-		if nao_existe:
-			erros += 1
-	nao_existe = all(d["id_genero"] != i["id_genero"] for d in readseries.data)
-		if nao_existe:
-			erros += 1
+    nao_existe = all(d["id_genero"] != i["id_genero"] for d in readfilmes.data)
+    if nao_existe:
+        erros += 1
+    nao_existe = all(d["id_genero"] != i["id_genero"] for d in readseries.data)
+    if nao_existe:
+        erros += 1
 print("generos nao atribuidos a nenhuma midia: \n",erros)
 
 
