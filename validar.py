@@ -64,7 +64,7 @@ print("Total de nulos: \n", nulos)
 
 
 erros = 0
-def verificar_erros(tabela1,tabela2,var1,var2,id1,id2):
+def verificar_consistencia(tabela1,tabela2,var1,var2,id1,id2):
     erros = 0 
     for i in tabela1.data:
         for j in tabela2.data:
@@ -76,10 +76,10 @@ def verificar_erros(tabela1,tabela2,var1,var2,id1,id2):
 
 erros = 0
 
-erros += verificar_erros(readusuarios, readavaliacoes, "nome", "usuario", "id_usuario", "id_usuario")
-erros += verificar_erros(readusuarios, readassinaturas, "nome", "usuario", "id_usuario", "id_usuario")
-erros += verificar_erros(readgeneros, readfilmes, "nome", "titulo", "id_genero", "id_genero")
-erros += verificar_erros(readgeneros, readseries, "nome", "titulo", "id_genero", "id_genero")
+erros += verificar_consistencia(readusuarios, readavaliacoes, "nome", "usuario", "id_usuario", "id_usuario")
+erros += verificar_consistencia(readusuarios, readassinaturas, "nome", "usuario", "id_usuario", "id_usuario")
+erros += verificar_consistencia(readgeneros, readfilmes, "nome", "titulo", "id_genero", "id_genero")
+erros += verificar_consistencia(readgeneros, readseries, "nome", "titulo", "id_genero", "id_genero")
 
 print("Total de erros: \n", erros)
 
@@ -90,22 +90,27 @@ for i in readusuarios.data:
 
     if not i["data_nascimento"] or datetime.strptime(i["data_nascimento"], "%Y-%m-%d") > maioridade:
         print(f"Erro: {i['nome']} não é maior de 18 anos ou tem data de nascimento nula")
+print("maioridade concluido \n")
 
 print("verificando email")
 for i in readusuarios.data:
     if i["email"].find("@") == -1 or i["email"].find(".") == -1 or i["email"] == "":
         print(f"Erro: {i['nome']} tem email inválido ou nulo")
+print("email concluido \n")
 
 print("verificando duracao do filme")
 
 for i in readfilmes.data:
     if i["duracao"] < 0 or i["duracao"] > 300:
         print(f"Erro: {i['titulo']} tem duração inválida")
+print("duracao concluido \n")
 
 print("verificando numero de temporadas")
 for i in readseries.data:
     if i["numero_temporadas"] < 0 or i["numero_temporadas"] > 20:
         print(f"Erro: {i['titulo']} tem número de temporadas inválido")
+
+print("temporadas concluido \n")
 
 print("verificando avaliacoes")
 
@@ -116,13 +121,80 @@ for i in readavaliacoes.data:
         print(f"Erro: {i['usuario']} tem comentario vazio")
     if i["data_avaliacao"] == "":
         print(f"Erro: {i['usuario']} tem data de avaliacao vazia")
+print("avaliacoes concluido \n")
 
 print("verificando assinaturas")
 for i in readassinaturas.data:
     if i["valor"] <= 0:
         print(f"Erro: {i['usuario']} tem valor de assinatura inválido")
+print("assinatura concluido \n")
+
+print("verificando avaliacoes duplicadas")
+vistos = []
+duplicatas = 0
+for i in readavaliacoes.data:
+	if (i["usuario"],i["id_filme"]) in vistos or (i["usuario"],i["id_serie"]) in vistos:
+		duplicatas += 1
+	else:
+		if i["id_serie"] == None:
+			vistos.append((i["usuario"],i["id_filme"]))
+		else:
+			vistos.append((i["usuario"],i["id_serie"]))
+print("numero de usuarios com avaliacoes duplicadas: \n",duplicatas)
+
+print("verificando consistencia de filmes e avaliacoes")
+erros = 0
+for i in readfilmes.data:
+	for j in readavaliacoes.data:
+		if i["id_filme"] != j["id_filme"]  and j["id_filme"] not None
+			erros += 1
+print("flmes que não constam na tabela de avaliacoes: \n",erros)
 
 
+print("verificando consistencia de filmes e avaliacoes")
+erros = 0
+for i in readseries.data:
+	for j in readavaliacoes.data:
+		if i["id_serie"] != j["id_serie"] and j["id_serie"] not None
+			erros += 1
+print("series que não constam na tabela de avaliacoes: \n",erros)
+
+print("verificando consistencia de assinaturas e usuarios")
+erros = 0
+for i in readusuarios.data:
+		nao_existe = all(d["id_usuario"] != i["id_usuario"] for d in readassinatura.data)
+		if nao_existe:
+			erros += 1
+print("usuarios sem assinaturas: \n",erros)
+
+print("verificando duplicatas de assinaturas")
+
+vistos = []
+erros = 0
+for i in readassinaturas.data:
+	if i["id_usuario"] in vistos:
+		erros += 1
+	else:
+		vistos.append(i["id_usuario"])
+print("assinaturas duplicadas: \n",erros)
+		
+
+erros = 0
+for i in readgeneros.data:
+		nao_existe = all(d["id_genero"] != i["id_genero"] for d in readfilmes.data)
+		if nao_existe:
+			erros += 1
+print("usuarios sem assinaturas: \n",erros)
+
+erros = 0
+for i in readgeneros.data:
+	nao_existe = all(d["id_genero"] != i["id_genero"] for d in readfilmes.data)
+		if nao_existe:
+			erros += 1
+	nao_existe = all(d["id_genero"] != i["id_genero"] for d in readseries.data)
+		if nao_existe:
+			erros += 1
+print("generos nao atribuidos a nenhuma midia: \n",erros)
 
 
 
