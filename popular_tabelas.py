@@ -10,6 +10,7 @@ def popular(numUsuarios,numMidias):
     midias = []
     avaliacoes = []
     assinaturas = []
+    planos = []
     #todos os dados a serem inseridos no banco
     assinex = ["premium", "basico", "familia"]
     assvalores = {"premium": 49.90, "basico": 29.90, "familia": 39.90}
@@ -48,7 +49,9 @@ def popular(numUsuarios,numMidias):
     print("indexando assinaturas")
     for l in pessoas:
         tipo = faker.Faker().random_element(assinex)
-        assinaturas.append({"usuario": l["nome"], "tipo": tipo, "data_renovacao": faker.Faker().date_this_year().strftime("%Y-%m-%d"), "valor" : assvalores[tipo]})
+        desconto = faker.Faker().pyfloat(min_value=0,max_value=.5,right_digits=2)
+        planos.append({"data_renovacao" : faker.Faker().date_this_year().strftime("%Y-%m-%d"), "desconto" : desconto})
+        assinaturas.append({"usuario": l["nome"], "tipo": tipo, "data_renovacao": faker.Faker().date_this_year().strftime("%Y-%m-%d"), "valor" : assvalores[tipo]-(assvalores[tipo]*desconto)})
         progresso += 1
         print("{0}%".format(progresso/len(pessoas) * 100), end="\r")
 
@@ -80,9 +83,24 @@ def popular(numUsuarios,numMidias):
         progresso += 1
         print("{:.1f}%".format(progresso/len(filmes) * 100), end="\r")
     progresso = 0
+    print("gerando assinaturas")
+    for i in assinaturas:
+        inserirAssinatura(i["tipo"], i["valor"])
+        for j in planos:
+            inserirPlano(j["data_renovacao"],j["desconto"],i["tipo"])
+            progresso += 1
+            print("{:.1f}%".format(progresso/(len(assinaturas)*len(planos)) * 100), end="\r")
+        #progresso += 1
+        #print("{:.1f}%".format(progresso/len(assinaturas) * 100), end="\r")
+    progresso = 0
     print("gerando usuarios")
     for i in pessoas:
-        inserirUsuario(i["nome"], i["data_nascimento"], i["email"])
+        for j in assinaturas:
+            if j["usuario"] == i:
+                break
+            else:
+                continue
+        inserirUsuario(i["nome"], i["data_nascimento"], i["email"],j["tipo"])
         progresso += 1
         print("{:.1f}%".format(progresso/len(pessoas) * 100), end="\r")
     progresso = 0
@@ -94,12 +112,17 @@ def popular(numUsuarios,numMidias):
             inserirAvaliacao(i["comentario"], i["data"], i["nota"], i["usuario"], i["nome"], "")
         progresso += 1
         print("{:.1f}%".format(progresso/len(avaliacoes) * 100), end="\r")
+    print("gerando classificacao etaria")
     progresso = 0
-    print("gerando assinaturas")
-    for i in assinaturas:
-        inserirAssinatura(i["tipo"], i["valor"], i["data_renovacao"], i["usuario"])
-        progresso += 1
-        print("{:.1f}%".format(progresso/len(assinaturas) * 100), end="\r")
+    classificacoes = ["L", "10", "12", "14", "16", "18"]
+    for i in series:
+        inserirGeneroSerie(i,faker.Faker().random_element(classificacoes),gerar_genero_filme())
+        progresso +=1
+        print("{:.1f}%".format(progresso/len(series) * 50), end="\r")
+    for i in filmes:
+        inserirGeneroFilme(i,faker.Faker().random_element(classificacoes),gerar_genero_filme())
+        progresso +=1
+        print("{:.1f}%".format(progresso/len(filmes) * 50), end="\r")
 
 if __name__ == "__main__":
     popular(10,20)#numero de usuarios(10) e numero de midias(20)

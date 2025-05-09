@@ -29,28 +29,30 @@ def inserirSerie(Ntemp,status,titulo,nomeGenero):#segundo
     #idgenero = supabase.table("generos").select("id_genero").eq("nome", nomeGenero).execute()
     response = supabase.table("series").insert({"numero_temporadas" : Ntemp, "status" : status, "titulo" : titulo}).execute()
 
-def inserirAssinatura(tipo,valor,nome):#sexto
+def inserirAssinatura(tipo,valor):#sexto
     #idusr = supabase.table("usuarios").select("id_usuario").eq("nome", nome).execute()
     response = supabase.table("assinaturas").insert({"tipo_plano" : tipo, "valor" : valor}).execute()
 
 def inserirUsuario(nome,data,email,assinatura):#quarto
-    idAssinatura = supabase.table("assinaturas").select("tipo").eq("id_assinatura", assinatura).execute()
-    idPlano = supabase.table("planos").select("id_Plano").eq("id_assinatura", idAssinatura.data[0]["tipo"]).execute()
-    response = supabase.table("usuarios").insert({"nome" : nome, "data_nascimento" : data, "email" : email, "id_Plano" : idPlano.data[0]["id_Plano"]}).execute()
+    idAssinatura = supabase.table("assinaturas").select("id_assinatura").eq("tipo_plano", assinatura).execute()
+    idPlano = supabase.table("planos").select("id_plano").eq("id_assinatura", idAssinatura.data[0]["id_assinatura"]).execute()
+    response = supabase.table("usuarios").insert({"nome" : nome, "data_nascimento" : data, "email" : email, "id_plano" : idPlano.data[0]["id_plano"]}).execute()
 
 def inserirPlano(data_renovacao,desconto,assinatura):
     id_ass = supabase.table("assinaturas").select("id_assinatura").eq("tipo_plano", assinatura).execute()
-    response = supabase.table("planos").insert({"data_renovacao" : data_renovacao, "desconto" : desconto, "id_assinatura" : id_ass}).execute()
+    response = supabase.table("planos").insert({"data_renovacao" : data_renovacao, "desconto" : desconto, "id_assinatura" : id_ass.data[0]["id_assinatura"]}).execute()
 
-def inserirGeneroFilme(titulo,genero,classificacao):
-    id_genero = supabase.table("generos").select("id_genero").eq("nome", genero).execute()
+def inserirGeneroFilme(titulo,classificacao,genero):
     id_filme = supabase.table("filmes").select("id_filme").eq("titulo", titulo).execute()
-    response = supabase.table("generofilme").insert({"id_genero" : id_genero.data[0]["id_genero"], "id_filme" : id_filme.data[0]["id_filme"], "classificacao_indicativa" : classificacao})
-
-def inserirGeneroSerie(titulo,genero,classificacao):
     id_genero = supabase.table("generos").select("id_genero").eq("nome", genero).execute()
-    id_filme = supabase.table("series").select("id_serie").eq("titulo", titulo).execute()
-    response = supabase.table("generoserie").insert({"id_genero" : id_genero.data[0]["id_genero"], "id_serie" : id_filme.data[0]["id_serie"], "classificacao_indicativa" : classificacao})
+    response = supabase.table("genero_filme").insert({"id_genero" : id_genero.data[0]["id_genero"], "id_filme" : id_filme.data[0]["id_filme"], "classificacao_indicativa" : classificacao}).execute()
+
+def inserirGeneroSerie(titulo,classificacao,genero):
+    id_serie = supabase.table("series").select("id_serie").eq("titulo", titulo).execute()
+    id_genero = supabase.table("generos").select("id_genero").eq("nome", genero).execute()
+    
+    response = supabase.table("genero_serie").insert({"id_genero" : id_genero.data[0]["id_genero"], "id_serie" : id_serie.data[0]["id_serie"], "classificacao_indicativa" : classificacao}).execute()
+    #print(response)
 
 
 if __name__ == "__main__":

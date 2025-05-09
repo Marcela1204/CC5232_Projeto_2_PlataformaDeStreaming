@@ -50,6 +50,7 @@ if __name__ == "__main__":
     midias = []
     avaliacoes = []
     assinaturas = []
+    planos = []
     #todos os dados a serem inseridos no banco
     assinex = ["premium", "basico", "familia"]
     assvalores = {"premium": 49.90, "basico": 29.90, "familia": 39.90}
@@ -74,7 +75,9 @@ if __name__ == "__main__":
             avaliacoes.append(avaliacao)
     for l in pessoas:
         tipo = faker.Faker().random_element(assinex)
-        assinaturas.append({"usuario": l["nome"], "tipo": tipo, "data_renovacao": faker.Faker().date_this_year().strftime("%Y-%m-%d"), "valor" : assvalores[tipo]})
+        desconto = faker.Faker().pyfloat(min_value=0,max_value=.5)
+        planos.append({"data_renovacao" : faker.Faker().date_this_year().strftime("%Y-%m-%d"), "desconto" : desconto})
+        assinaturas.append({"usuario": l["nome"], "tipo": tipo, "data_renovacao": faker.Faker().date_this_year().strftime("%Y-%m-%d"), "valor" : assvalores[tipo]*desconto})
 
     
     #print(pessoas)
@@ -119,7 +122,21 @@ if __name__ == "__main__":
     progresso = 0
     print("gerando assinaturas")
     for i in assinaturas:
-        inserirAssinatura(i["tipo"], i["valor"], i["data_renovacao"], i["usuario"])
-        progresso += 1
-        print("{0}%".format(progresso/len(assinaturas) * 100), end="\r")
+        inserirAssinatura(i["tipo"], i["valor"], i["usuario"])
+        for j in planos:
+            inserirPlano(j["data_renovacao"],j["desconto"],i["tipo"])
+            progresso += 1
+            print("{0}%".format(progresso/(len(assinaturas)*len(planos)) * 100), end="\r")
+    print("gerando classificacao etaria")
+    progresso = 0
+    classificacoes = ["L", "10", "12", "14", "16", "18"]
+    for i in series:
+        inserirGeneroSerie(i,faker.Faker().random_element(classificacoes))
+        progresso +=1
+        print("{0}%".format(progresso/len(series) * 50))
+    for i in filmes:
+        inserirGeneroFilme(i,faker.Faker().random_element(classificacoes))
+        progresso +=1
+        print("{0}%".format(progresso/len(filmes) * 50))
+
     
