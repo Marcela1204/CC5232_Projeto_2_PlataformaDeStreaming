@@ -33,7 +33,7 @@ duplicatas = {"usuarios" : 0,
 
 duplicatas["usuarios"] += verificar_duplicatas(readusuarios, "nome", duplicatas["usuarios"])
 duplicatas["avaliacoes"] += verificar_duplicatas(readavaliacoes, "comentario", duplicatas["avaliacoes"])
-duplicatas["assinaturas"] += verificar_duplicatas(readassinaturas, "usuario", duplicatas["assinaturas"])
+duplicatas["assinaturas"] += verificar_duplicatas(readassinaturas, "id_assinatura", duplicatas["assinaturas"])
 duplicatas["generos"] += verificar_duplicatas(readgeneros, "nome", duplicatas["generos"])
 duplicatas["series"] += verificar_duplicatas(readseries, "titulo", duplicatas["series"])
 duplicatas["filmes"] += verificar_duplicatas(readfilmes, "titulo", duplicatas["filmes"])

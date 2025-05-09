@@ -47,11 +47,12 @@ def popular(numUsuarios,numMidias):
         print("{:.1f}%".format(progresso/len(midias) * 100), end="\r")
     progresso = 0
     print("indexando assinaturas")
-    for l in pessoas:
+    for i in assinex:
+        assinaturas.append({"tipo": i, "valor" : assvalores[i]})
+    for _ in pessoas:
         tipo = faker.Faker().random_element(assinex)
         desconto = faker.Faker().pyfloat(min_value=0,max_value=.5,right_digits=2)
         planos.append({"data_renovacao" : faker.Faker().date_this_year().strftime("%Y-%m-%d"), "desconto" : desconto})
-        assinaturas.append({"usuario": l["nome"], "tipo": tipo, "data_renovacao": faker.Faker().date_this_year().strftime("%Y-%m-%d"), "valor" : assvalores[tipo]-(assvalores[tipo]*desconto)})
         progresso += 1
         print("{0}%".format(progresso/len(pessoas) * 100), end="\r")
 
