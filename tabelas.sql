@@ -2,59 +2,100 @@ CREATE SCHEMA IF NOT EXISTS public;
 SET search_path TO public;
 
 -- Tabela Usuário
-create table usuarios (
-    id_usuario serial primary key,
-    nome varchar(100) not null,
-    email varchar(100) not null unique,
-    data_nascimento date not null
-);
+create table public.usuarios (
+  id_usuario serial not null,
+  nome character varying(100) not null,
+  email character varying(100) not null,
+  data_nascimento date not null,
+  id_plano bigint null,
+  constraint usuarios_pkey primary key (id_usuario),
+  constraint usuarios_email_key unique (email),
+  constraint usuarios_id_plano_fkey foreign KEY (id_plano) references planos (id_plano)
+) TABLESPACE pg_default;
 
 -- Tabela Gênero
-create table generos (
-    id_genero serial primary key,
-    nome varchar(100) not null unique,
-    descricao text not null
-);
+create table public.generos (
+  id_genero serial not null,
+  nome character varying(100) not null,
+  descricao text not null,
+  constraint generos_pkey primary key (id_genero),
+  constraint generos_nome_key unique (nome)
+) TABLESPACE pg_default;
 
 -- Tabela Filme
-create table filmes (
-    id_filme serial primary key,
-    titulo varchar(200) not null,
-    genero text,
-    duracao integer not null,  -- Duração em minutos
-    ano_lancamento integer not null,
-    id_genero integer references generos(id_genero)
-);
-
+create table public.filmes (
+  id_filme serial not null,
+  titulo character varying(200) not null,
+  duracao integer not null,
+  ano_lancamento integer not null,
+  constraint filmes_pkey primary key (id_filme)
+) TABLESPACE pg_default;
 -- Tabela Série
-create table series (
-    id_serie serial primary key,
-    titulo varchar(200) not null,
-    numero_temporadas integer not null,
-    genero text,
-    status varchar(20) not null check (status in ('ativa', 'finalizada')),
-    id_genero integer references generos(id_genero)
-    
-);
+create table public.series (
+  id_serie serial not null,
+  titulo character varying(200) not null,
+  numero_temporadas integer not null,
+  status character varying(20) not null,
+  constraint series_pkey primary key (id_serie),
+  constraint series_status_check check (
+    (
+      (status)::text = any (
+        (
+          array[
+            'ativa'::character varying,
+            'finalizada'::character varying
+          ]
+        )::text[]
+      )
+    )
+  )
+) TABLESPACE pg_default;
 
 -- Tabela Avaliação
-create table avaliacoes (
-    id_avaliacao serial primary key,
-    nota integer not null check (nota >= 1 and nota <= 10), -- Nota de 1 a 10
-    comentario text,
-    data_avaliacao timestamp,
-    usuario text,
-    id_usuario integer references usuarios(id_usuario),
-    id_serie integer references series(id_serie),
-    id_filme integer references filmes(id_filme)
-);
+create table public.avaliacoes (
+  id_avaliacao serial not null,
+  nota integer not null,
+  comentario text null,
+  data_avaliacao timestamp without time zone null,
+  id_usuario integer null,
+  id_serie integer null,
+  id_filme integer null,
+  constraint avaliacoes_pkey primary key (id_avaliacao),
+  constraint avaliacoes_id_filme_fkey foreign KEY (id_filme) references filmes (id_filme),
+  constraint avaliacoes_id_serie_fkey foreign KEY (id_serie) references series (id_serie),
+  constraint avaliacoes_id_usuario_fkey foreign KEY (id_usuario) references usuarios (id_usuario),
+  constraint avaliacoes_nota_check check (
+    (
+      (nota >= 1)
+      and (nota <= 10)
+    )
+  )
+) TABLESPACE pg_default;
 
 -- Tabela Assinatura
-create table assinaturas (
-    id_assinatura serial primary key,
-    usuario text,
-    tipo_plano varchar(50) not null,  -- Exemplo: "mensal", "anual"
-    valor numeric(10, 2) not null,  -- Valor da assinatura
-    data_renovacao date not null,
-    id_usuario integer references usuarios(id_usuario)
-);
+create table public.assinaturas (
+  id_assinatura serial not null,
+  tipo_plano character varying(50) not null,
+  valor numeric(10, 2) not null,
+  constraint assinaturas_pkey primary key (id_assinatura)
+) TABLESPACE pg_default;
+
+-- Tabela GeneroSerie
+create table public.genero_serie (
+  id_serie integer not null,
+  id_genero integer not null,
+  classificacao_indicativa text null,
+  constraint genero_serie_pkey primary key (id_serie, id_genero),
+  constraint genero_serie_id_genero_fkey foreign KEY (id_genero) references generos (id_genero),
+  constraint genero_serie_id_serie_fkey foreign KEY (id_serie) references series (id_serie)
+) TABLESPACE pg_default;
+
+-- Tabela GeneroFilme
+create table public.genero_filme (
+  id_filme integer not null,
+  id_genero integer not null,
+  classificacao_indicativa text null,
+  constraint genero_filme_pkey primary key (id_filme, id_genero),
+  constraint genero_filme_id_filme_fkey foreign KEY (id_filme) references filmes (id_filme),
+  constraint genero_filme_id_genero_fkey foreign KEY (id_genero) references generos (id_genero)
+) TABLESPACE pg_default;
