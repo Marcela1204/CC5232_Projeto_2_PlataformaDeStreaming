@@ -51,7 +51,7 @@ Projeto criado por:
 9. Obter a quantidade de avaliações por usuário
 10. Total de filmes e séries por gênero
 11. Valor total arrecadado com os planos (considerando todos os usuários)
-12. Filmes lançados após 2020 com média de avaliação maior que 4
+12. Filmes lançados após 2020 com média de avaliação maior que 2
 <br>
 
 
