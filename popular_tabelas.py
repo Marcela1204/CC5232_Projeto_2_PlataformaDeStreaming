@@ -74,13 +74,19 @@ def popular(numUsuarios,numMidias):
     status = ["ativa", "finalizada"]
     fake = faker.Faker()
     for i in series:
-        inserirSerie(random.randint(1, 5), fake.random_element(status), i, gerar_genero_filme())
+        num_temp = random.randint(1, 5)
+        stat = fake.random_element(status)
+        inserirSerie(num_temp, stat, i, gerar_genero_filme())
+        #inserirSerie(num_temp, stat, i, gerar_genero_filme())
         progresso += 1
         print("{:.1f}%".format(progresso/len(series) * 100), end="\r")
     progresso = 0
     print("gerando filmes")
     for i in filmes:
-        inserirFilme(i, random.randint(60, 180), random.randint(2000, 2023), gerar_genero_filme())
+        duracao = random.randint(60, 180)
+        ano = random.randint(2000, 2023)
+        inserirFilme(i, duracao, ano, gerar_genero_filme())
+        #inserirFilme(i, duracao, ano, gerar_genero_filme())
         progresso += 1
         print("{:.1f}%".format(progresso/len(filmes) * 100), end="\r")
     progresso = 0
@@ -96,12 +102,7 @@ def popular(numUsuarios,numMidias):
     progresso = 0
     print("gerando usuarios")
     for i in pessoas:
-        for j in assinaturas:
-            if j["usuario"] == i:
-                break
-            else:
-                continue
-        inserirUsuario(i["nome"], i["data_nascimento"], i["email"],j["tipo"])
+        inserirUsuario(i["nome"], i["data_nascimento"], i["email"],faker.Faker().random_element(assinex))
         progresso += 1
         print("{:.1f}%".format(progresso/len(pessoas) * 100), end="\r")
     progresso = 0
@@ -117,13 +118,26 @@ def popular(numUsuarios,numMidias):
     progresso = 0
     classificacoes = ["L", "10", "12", "14", "16", "18"]
     for i in series:
-        inserirGeneroSerie(i,faker.Faker().random_element(classificacoes),gerar_genero_filme())
+        classi = faker.Faker().random_element(classificacoes)
+        gen1 = gerar_genero_filme()
+        gen2 = gerar_genero_filme()
+        while gen1 == gen2:
+            gen2 = gerar_genero_filme()
+        
+        inserirGeneroSerie(i,classi,gen1)
+        inserirGeneroSerie(i,classi,gen2)
         progresso +=1
         print("{:.1f}%".format(progresso/len(series) * 50), end="\r")
     for i in filmes:
-        inserirGeneroFilme(i,faker.Faker().random_element(classificacoes),gerar_genero_filme())
+        classi = faker.Faker().random_element(classificacoes)
+        gen1 = gerar_genero_filme()
+        gen2 = gerar_genero_filme()
+        while gen1 == gen2:
+            gen2 = gerar_genero_filme()
+        inserirGeneroFilme(i,classi,gen1)
+        inserirGeneroFilme(i,classi,gen2)
         progresso +=1
         print("{:.1f}%".format(progresso/len(filmes) * 50), end="\r")
 
 if __name__ == "__main__":
-    popular(10,20)#numero de usuarios(10) e numero de midias(20)
+    popular(5,10)#numero de usuarios(10) e numero de midias(20)
