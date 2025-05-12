@@ -73,6 +73,7 @@ Passo a passo para exceutar o projeto:
 <br>
 
 ## Diagramas
+(Caso haja alguma alteração ou pouca qualidade na imagem, há uma pasta logo acima com todas as imagens utilizadas no projeto)
 
 ### MER
 ![image](https://github.com/user-attachments/assets/8d091870-6b6d-44f8-8e05-8c4dc23c0a74)
