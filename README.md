@@ -22,12 +22,15 @@ Projeto criado por:
 
 - **Tabelas**   
 > O banco de dados deverá conter as seguintes informações:   
-1. Usuário: id_usuario, nome, e-mail e data de nascimento.   
-2. Filme: id_filme, título, duração e ano de lançamento.   *
-3. Série: id_serie, título, número de temporadas e status (ativa ou finalizada).   
-4. Gênero: id_genero, nome e descrição.   
-5. Avaliação: id_ avaliacao, nota, comentário e data da avaliação.   *
-6. Assinatura: id_assinatura, tipo de plano, valor e data de renovação.
+1. Usuário (usuarios): id_usuario, nome, e-mail, data de nascimento e id_plano.   
+2. Filme (filmes): id_filme, titulo, duracao e ano_lancamento.   
+3. Genero e Filme (genero_filme): id_filme, id_genero e classificacao_indicativa.   
+4. Série (series): id_serie, titulo, numero_temporadas e status.
+5. Genero e Série (genero_serie): id_serie, id_genero e classificacao_indicativa.
+6. Gênero (generos): id_genero, nome e descricao.   
+7. Avaliação (avaliacoes): id_ avaliacao, nota, comentario, data_avaliacao, id_usuario, id_serie, id_filme.
+8. Assinatura (assinaturas): id_assinatura, tipo_plano e valor.
+9. Plano (planos): id_plano, data_renovacao, desconto, id_assinatura.
 <br>
 
 > O modelo de dados incluirá relacionamentos do tipo muitos-para-muitos entre:
@@ -76,8 +79,7 @@ Passo a passo para exceutar o projeto:
 (Caso haja alguma alteração ou pouca qualidade na imagem, há uma pasta logo acima com todas as imagens utilizadas no projeto)
 
 ### MER
-![image](https://github.com/user-attachments/assets/8d091870-6b6d-44f8-8e05-8c4dc23c0a74)
-
+![image](https://github.com/user-attachments/assets/7dfbae06-16cd-46a6-998c-c79e9cb07e67)
 
 ### MR
 ![image](https://github.com/user-attachments/assets/ee69a9c0-64aa-4699-8849-a31cc04de59e)
