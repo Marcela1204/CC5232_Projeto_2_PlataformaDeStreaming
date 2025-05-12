@@ -17,7 +17,7 @@ Projeto criado por:
 
 ## Descrição do Projeto
 - **Objetivo**   
-> Desenvolver um sistema de banco de dados para uma plataforma de streaming, com foco na gestão de conteúdos audiovisuais e interação dos usuários. O sistema deverá contemplar as seguintes entidades principais: Usuário, Filme, Série, Gênero, Avaliação e Assinatura.
+> Desenvolver um sistema de banco de dados para uma plataforma de streaming, com foco na gestão de conteúdos audiovisuais e interação dos usuários. O sistema deverá contemplar as seguintes entidades principais: Usuário, Filme, Série, Gênero, Avaliação, Assinatura e Plano.
 <br>
 
 - **Tabelas**   
