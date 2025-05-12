@@ -32,7 +32,7 @@ Projeto criado por:
 
 > O modelo de dados incluirá relacionamentos do tipo muitos-para-muitos entre:
 1. Filmes e Gêneros: um filme pode estar associado a múltiplos gêneros e um gênero pode agrupar diversos filmes.
-2. Usuários e Avaliações: cada usuário pode realizar múltiplas avaliações e cada conteúdo pode ser avaliado por vários usuários.
+2. Séries e Gêneros: uma série pode estar associado a múltiplos gêneros e um gênero pode agrupar diversas séries.
 <br>
 
 - **Queries** 
