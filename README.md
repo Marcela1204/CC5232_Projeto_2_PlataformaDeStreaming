@@ -75,7 +75,8 @@ Passo a passo para exceutar o projeto:
 ## Diagramas
 
 ### MER
-![image](https://github.com/user-attachments/assets/fbd18e38-ab93-4cd5-961c-369799e7b154)
+![image](https://github.com/user-attachments/assets/8d091870-6b6d-44f8-8e05-8c4dc23c0a74)
+
 
 ### MR
 ![image](https://github.com/user-attachments/assets/2646c4fb-80cb-4a69-bc1a-07a36b7915d5)
