@@ -40,16 +40,18 @@ Projeto criado por:
 
 - **Queries** 
 > Para demonstrar o funcionamento do banco, foram usadas as seguintes queries:   
-1. Listar os usuários com suas assinaturas
-2. Mostrar os usuários que fizeram avaliações e o conteúdo avaliado
-3. Exibir filmes com suas avaliações e notas médias
-4. Listar séries com o número de avaliações
-5. Obter os gêneros e quantos conteúdos (filmes ou séries) estão associados a cada um
-6. Listar todos os usuários com suas notas e comentários em filmes
-7. Listar usuários que avaliaram séries finalizadas
-8. Mostrar usuários com sua assinatura e média das notas dadas
-9. Filmes com avaliações negativas (< 5) e os usuários que avaliaram
-10. Séries ativas com avaliações, nomes dos usuários e notas
+1. Listar os 10 filmes mais bem avaliados (com média de nota)
+2. Listar todas as séries ativas com mais de 3 temporadas
+3. Listar os filmes com sua classificação indicativa mais alta (caso tenha múltiplos gêneros)
+4. Listar os usuários e seus planos com valor e desconto
+5. Contar quantos usuários há por tipo de plano
+6. Listar os usuários que nunca fizeram uma avaliação
+7. Média de nota por gênero de filmes
+8. Comentários recentes (últimos 7 dias) com nome do usuário e título da obra
+9. Obter a quantidade de avaliações por usuário
+10. Total de filmes e séries por gênero
+11. Valor total arrecadado com os planos (considerando todos os usuários)
+12. Filmes lançados após 2020 com média de avaliação maior que 4
 <br>
 
 
