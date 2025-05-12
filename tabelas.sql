@@ -30,6 +30,7 @@ create table public.filmes (
   ano_lancamento integer not null,
   constraint filmes_pkey primary key (id_filme)
 ) TABLESPACE pg_default;
+
 -- Tabela Série
 create table public.series (
   id_serie serial not null,
