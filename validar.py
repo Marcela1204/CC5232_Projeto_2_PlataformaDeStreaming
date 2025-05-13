@@ -13,6 +13,9 @@ readgeneros = supabase.table('generos').select('*').execute()
 readusuarios = supabase.table('usuarios').select('*').execute()
 readavaliacoes = supabase.table('avaliacoes').select('*').execute()
 readassinaturas = supabase.table('assinaturas').select('*').execute()
+readplanos = supabase.table('planos').select('*').execute()
+readgeneroFilme = supabase.table('genero_filme').select('*').execute()
+readgeneroSerie = supabase.table('genero_serie').select('*').execute()
 
 def verificar_duplicatas(tabela,coluna,counterDuplicatas):
     vistos = []
@@ -28,7 +31,10 @@ duplicatas = {"usuarios" : 0,
             "assinaturas" : 0,
             "generos" : 0,
             "series" : 0,
-            "filmes" : 0
+            "filmes" : 0,
+            "planos" : 0,
+            "genero_filme" : 0,
+            "genero_serie" : 0
         }
 
 duplicatas["usuarios"] += verificar_duplicatas(readusuarios, "nome", duplicatas["usuarios"])
@@ -37,6 +43,9 @@ duplicatas["assinaturas"] += verificar_duplicatas(readassinaturas, "id_assinatur
 duplicatas["generos"] += verificar_duplicatas(readgeneros, "nome", duplicatas["generos"])
 duplicatas["series"] += verificar_duplicatas(readseries, "titulo", duplicatas["series"])
 duplicatas["filmes"] += verificar_duplicatas(readfilmes, "titulo", duplicatas["filmes"])
+duplicatas["planos"] += verificar_duplicatas(readplanos, "id_plano", duplicatas["planos"])
+duplicatas["genero_filme"] += verificar_duplicatas(readgeneroFilme, "id_filme", duplicatas["genero_filme"])
+duplicatas["genero_serie"] += verificar_duplicatas(readgeneroSerie, "id_serie", duplicatas["genero_serie"])
 
 print("Total de duplicatas: \n", duplicatas)
 
@@ -51,7 +60,10 @@ nulos = {"usuarios" : 0,
         "assinaturas" : 0,
         "generos" : 0,
         "series" : 0,
-        "filmes" : 0
+        "filmes" : 0,
+        "planos" : 0,
+        "genero_filme" : 0,
+        "genero_serie" : 0
     }
 nulos["usuarios"] += verificar_nulos(readusuarios, nulos["usuarios"])
 nulos["avaliacoes"] += verificar_nulos(readavaliacoes, nulos["avaliacoes"])
@@ -59,6 +71,9 @@ nulos["assinaturas"] += verificar_nulos(readassinaturas, nulos["assinaturas"])
 nulos["generos"] += verificar_nulos(readgeneros, nulos["generos"])
 nulos["series"] += verificar_nulos(readseries, nulos["series"])
 nulos["filmes"] += verificar_nulos(readfilmes, nulos["filmes"])
+nulos["planos"] += verificar_nulos(readplanos, nulos["planos"])
+nulos["genero_filme"] += verificar_nulos(readgeneroFilme, nulos["genero_filme"])
+nulos["genero_serie"] += verificar_nulos(readgeneroSerie, nulos["genero_serie"])
 
 print("Total de nulos: \n", nulos)
 
@@ -76,10 +91,10 @@ def verificar_consistencia(tabela1,tabela2,var1,var2,id1,id2):
 
 erros = 0
 
-erros += verificar_consistencia(readusuarios, readavaliacoes, "nome", "usuario", "id_usuario", "id_usuario")
-erros += verificar_consistencia(readusuarios, readassinaturas, "nome", "usuario", "id_usuario", "id_usuario")
-erros += verificar_consistencia(readgeneros, readfilmes, "nome", "titulo", "id_genero", "id_genero")
-erros += verificar_consistencia(readgeneros, readseries, "nome", "titulo", "id_genero", "id_genero")
+#erros += verificar_consistencia(readusuarios, readavaliacoes, "nome", "usuario", "id_usuario", "id_usuario")
+#erros += verificar_consistencia(readusuarios, readassinaturas, "nome", "usuario", "id_usuario", "id_usuario")
+#erros += verificar_consistencia(readgeneros, readfilmes, "nome", "titulo", "id_genero", "id_genero")
+#erros += verificar_consistencia(readgeneros, readseries, "nome", "titulo", "id_genero", "id_genero")
 
 print("Total de erros: \n", erros)
 
@@ -133,13 +148,13 @@ print("verificando avaliacoes duplicadas")
 vistos = []
 duplicatas = 0
 for i in readavaliacoes.data:
-	if (i["usuario"],i["id_filme"]) in vistos or (i["usuario"],i["id_serie"]) in vistos:
+	if (i["id_usuario"],i["id_filme"]) in vistos or (i["id_usuario"],i["id_serie"]) in vistos:
 		duplicatas += 1
 	else:
 		if i["id_serie"] == None:
-			vistos.append((i["usuario"],i["id_filme"]))
+			vistos.append((i["id_usuario"],i["id_filme"]))
 		else:
-			vistos.append((i["usuario"],i["id_serie"]))
+			vistos.append((i["id_usuario"],i["id_serie"]))
 print("numero de usuarios com avaliacoes duplicadas: \n",duplicatas)
 
 print("verificando consistencia de filmes e avaliacoes")
@@ -163,42 +178,125 @@ for i in readseries.data:
         erros += 1
 print("series que não constam na tabela de avaliacoes: \n",erros)
 
-print("verificando consistencia de assinaturas e usuarios")
-erros = 0
-for i in readusuarios.data:
-		nao_existe = all(d["id_usuario"] != i["id_usuario"] for d in readassinaturas.data)
-		if nao_existe:
-			erros += 1
-print("usuarios sem assinaturas: \n",erros)
+#print("verificando consistencia de assinaturas e usuarios")
+#erros = 0
+#for i in readusuarios.data:
+#		nao_existe = all(d["id_usuario"] != i["id_usuario"] for d in readassinaturas.data)
+#		if nao_existe:
+#			erros += 1
+#print("usuarios sem assinaturas: \n",erros)
 
 print("verificando duplicatas de assinaturas")
 
 vistos = []
 erros = 0
 for i in readassinaturas.data:
-	if i["id_usuario"] in vistos:
+	if i["id_assinatura"] in vistos:
 		erros += 1
 	else:
-		vistos.append(i["id_usuario"])
+          vistos.append(i["id_assinatura"])
 print("assinaturas duplicadas: \n",erros)
 		
 
 erros = 0
 for i in readgeneros.data:
-		nao_existe = all(d["id_genero"] != i["id_genero"] for d in readfilmes.data)
+		nao_existe = all(d["id_genero"] != i["id_genero"] for d in readgeneroFilme.data)
 		if nao_existe:
 			erros += 1
 print("usuarios sem assinaturas: \n",erros)
 
 erros = 0
 for i in readgeneros.data:
-    nao_existe = all(d["id_genero"] != i["id_genero"] for d in readfilmes.data)
+    nao_existe = all(d["id_genero"] != i["id_genero"] for d in readgeneroFilme.data)
     if nao_existe:
         erros += 1
-    nao_existe = all(d["id_genero"] != i["id_genero"] for d in readseries.data)
+    nao_existe = all(d["id_genero"] != i["id_genero"] for d in readgeneroSerie.data)
     if nao_existe:
         erros += 1
 print("generos nao atribuidos a nenhuma midia: \n",erros)
 
+erros = 0
+for i in readusuarios.data:
+		nao_existe = all(d["id_plano"] != i["id_plano"] for d in readplanos.data)
+		if nao_existe:
+			erros += 1
+print("usuarios sem planos: \n",erros)
 
+erros = 0
+for i in readassinaturas.data:
+		nao_existe = all(d["id_assinatura"] != i["id_assinatura"] for d in readplanos.data)
+		if nao_existe:
+			erros += 1
+print("assinatura sem plano: \n",erros)
 
+erros = 0
+for i in readavaliacoes.data:
+    if i["id_filme"] != None and i["id_serie"] != None:
+        erros += 1
+
+print("dados de avaliacoes inconsistentes: \n",erros)
+
+erros = 0
+for i in readavaliacoes.data:
+		nao_existe = all(d["id_usuario"] != i["id_usuario"] for d in readusuarios.data)
+		if nao_existe:
+			erros += 1
+print("avaliacoes sem usuario: \n",erros)
+
+erros = 0
+for i in readassinaturas.data:
+      if i["valor"] <= 0:
+            erros += 1
+print("assinatura com valor menor q 0: \n",erros)
+
+erros = 0
+for i in readplanos.data:
+      if 0 > i["desconto"] > 1:
+            erros += 1
+print("planos com desconto menor que 0% ou maior que 100%: \n",erros)
+
+erros = 0
+classificacoes = ["L", "10", "12", "14", "16", "18"]
+for i in readgeneroFilme.data:
+    if i["classificacao_indicativa"] not in classificacoes:
+        erros += 1
+for i in readgeneroSerie.data:
+    if i["classificacao_indicativa"] not in classificacoes:
+        erros += 1
+print("classificacao de generos inconsistentes: \n",erros)
+
+erros = 0
+for i in readfilmes.data:
+      if i["ano_lancamento"] < 1900 or i["ano_lancamento"] > datetime.today().year:
+            erros += 1
+print("ano de lancamento de filmes inconsistentes: \n",erros)
+
+erros = 0
+emails = []
+for i in readusuarios.data:
+    if i["email"] in emails:
+        erros += 1
+    else:
+        emails.append(i["email"])
+print("emails duplicados: \n",erros)
+
+erros = 0
+vistos = []
+for i in readgeneroFilme.data:
+    if (i["id_filme"],i["id_genero"]) in vistos:
+        erros += 1
+    else:
+        vistos.append((i["id_filme"],i["id_genero"]))
+print("genero filme e genero duplicado: \n",erros)
+
+erros = 0
+vistos = []
+for i in readgeneroSerie.data:
+    if (i["id_serie"],i["id_genero"]) in vistos:
+        erros += 1
+    else:
+        vistos.append((i["id_serie"],i["id_genero"]))
+print("genero serie  e genero duplicado: \n",erros)
+
+if len(readavaliacoes.data) != len(readusuarios.data)*(len(readfilmes.data) + len(readseries.data)):
+    print("Erro: o número de avaliações não é consistente com o número de usuários e filmes/series")
