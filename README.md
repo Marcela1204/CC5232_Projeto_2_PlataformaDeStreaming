@@ -89,7 +89,7 @@ $$ language plpgsql security definer;
 <div align="center">
   
 **ASSISTA O VÍDEO TUTORIAL ABAIXO**
-[![Assista no YouTube](imagens/thumb.png)](https://youtu.be/prj2MCPkQU8)
+[![Assista no YouTube](imagens/thumb.png)](https://www.youtube.com/watch?v=Ahgipq875S4)
 
 
 </div>
