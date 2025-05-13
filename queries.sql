@@ -78,6 +78,6 @@ JOIN assinaturas s ON p.id_assinatura = s.id_assinatura;
 SELECT f.titulo, f.ano_lancamento, ROUND(AVG(a.nota), 2) AS media
 FROM filmes f
 JOIN avaliacoes a ON f.id_filme = a.id_filme
-WHERE f.ano_lancamento > 2020
+WHERE f.ano_lancamento > 2000
 GROUP BY f.id_filme, f.titulo, f.ano_lancamento
 HAVING AVG(a.nota) > 2;
