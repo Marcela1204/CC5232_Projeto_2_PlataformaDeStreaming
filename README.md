@@ -59,19 +59,37 @@ Projeto criado por:
 Passo a passo para exceutar o projeto: 
 
 ### Primeiro passo: Instalar bibliotecas 'Python', 'Faker' e 'Supabase'
-- Abra o arquivo criarPopularTabela.py no Codespace do Github e instale as três bibliotecas.
+- Abra o Codespace do Github e instale as três bibliotecas.
 
 ### Segundo passo: Verificar URL e KEY do seu banco
-- Copie e cole as chaves URL e KEY do seu banco no supabase (localização detalhada no tutorial abaixo) e substitua nas váriàveis url e key do código.
+- Copie e cole as chaves URL e KEY do seu banco no supabase (localização detalhada no tutorial abaixo) e substitua nas váriàveis url e key do código nos arquivos 'criarTabela.py', 'insercao.py' e 'validar.py'.
 > Dica: Crie seu próprio banco de dados para que não haja problema com permissão no ‘service role’ ao rodar o código!
 
-### Terceiro passo: Execução do código
-- Execute o código e, após aparecer a mensagem 'concluído', é possível localizar os dados no banco!
+### Terceiro passo: Permissão do banco
+- Abra o arquivo criarTabela.py, selecione o código abaixo e execute no Supabase (SQL Editor)
+```python
+GRANT ALL PRIVILEGES ON SCHEMA public TO service_role;
+
+create or replace function execute_sql(sql text)
+returns void as $$
+begin
+    execute sql;
+end;
+$$ language plpgsql security definer;
+
+```
+### Quarto passo: Criação das tabelas
+- Abra o arquivo criarTabela.py e execute o código
+
+### Quinto passo: Ppopulação das tabelas
+- Abra o arquivo popular_tabelas.py e execute o código
+
+ 
 <br>
 <div align="center">
   
 **ASSISTA O VÍDEO TUTORIAL ABAIXO**
-(Teremos um tutorial)
+[![Assista no YouTube](imagens/thumb.png)](https://youtu.be/prj2MCPkQU8)
 
 
 </div>
