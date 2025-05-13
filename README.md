@@ -81,7 +81,7 @@ $$ language plpgsql security definer;
 ### Quarto passo: Criação das tabelas
 - Abra o arquivo criarTabela.py e execute o código
 
-### Quinto passo: Ppopulação das tabelas
+### Quinto passo: População das tabelas
 - Abra o arquivo popular_tabelas.py e execute o código
 
  
