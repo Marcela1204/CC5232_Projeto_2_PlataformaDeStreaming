@@ -140,4 +140,4 @@ def popular(numUsuarios,numMidias):
         print("{:.1f}%".format(progresso/len(filmes) * 50), end="\r")
 
 if __name__ == "__main__":
-    popular(5,10)#numero de usuarios(10) e numero de midias(20)
+    popular(5,10)#numero de usuarios(5) e numero de midias(10)

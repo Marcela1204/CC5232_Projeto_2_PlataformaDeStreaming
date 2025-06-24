@@ -67,11 +67,6 @@ if __name__ == "__main__":
             else:
                 tipo = "serie"
             avaliacao = gerar_avaliacao(i, j["nome"],tipo)
-            #print(f"Avaliação para {avaliacao['tipo']} '{avaliacao['nome']}' por {avaliacao['usuario']}:")
-            #print(f"Comentário: {avaliacao['comentario']}")
-            #print(f"Data: {avaliacao['data']}")
-            #print(f"Nota: {avaliacao['nota']}")
-            #print()
             avaliacoes.append(avaliacao)
     for l in pessoas:
         tipo = faker.Faker().random_element(assinex)
